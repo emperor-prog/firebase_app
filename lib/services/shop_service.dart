@@ -25,8 +25,8 @@ class ShopService {
           context: context,
           onSuccess: () {
             var data = response.data;
-            for (int i = 0; i < data.products.length; i++) {
-              products.add(data.products[i]);
+            for (int i = 0; i < data.length; i++) {
+              products.add(Product.fromJson(data[i]));
             }
           });
 
