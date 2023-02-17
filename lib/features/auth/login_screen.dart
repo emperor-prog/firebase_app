@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/custom_button.dart';
 import 'package:flutter_application_1/common/custom_testfield.dart';
+import 'package:flutter_application_1/services/firebase_auth_methods.dart';
 import 'package:flutter_application_1/utils/custom_color.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,13 +17,35 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _loginFormKey = GlobalKey<FormState>();
 
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
+  void loginWithEmail() async {
+    await FirebaseAuthMethods(FirebaseAuth.instance).signInWithEmail(
+        email: emailController.text,
+        password: passwordController.text,
+        context: context);
+  }
+
+  void signInWithGoogle() async {
+    await FirebaseAuthMethods(FirebaseAuth.instance)
+        .signInWithGoogle(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              //TODO: navigate to signup page
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back_ios,
@@ -44,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 10,
                 ),
                 CustomTextField(
+                  controller: emailController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please enter email address.";
@@ -57,6 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 10,
                 ),
                 CustomTextField(
+                  controller: passwordController,
                   validator: (value) {
                     if (value!.isEmpty || value.length < 8) {
                       return "Password must be atleast 8 characters long.";
@@ -93,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   buttonText: 'LOGIN',
                   onPressed: () {
                     if (_loginFormKey.currentState!.validate()) {
-                      //TODO:firebase signi in api call
+                      loginWithEmail();
                     }
                   },
                 ),
@@ -114,9 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SocialIcon(
-                        onTap: () {
-//TODO:sigin eith google.
-                        },
+                        onTap: signInWithGoogle,
                         url:
                             'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png'),
                     const SizedBox(

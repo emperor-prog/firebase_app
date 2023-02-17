@@ -5,11 +5,13 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final bool isObscured;
   final String? Function(String?)? validator;
+  final TextEditingController controller;
   const CustomTextField(
       {super.key,
       required this.labelText,
       this.isObscured = false,
-      this.validator});
+      this.validator,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class CustomTextField extends StatelessWidget {
                 spreadRadius: 2)
           ]),
       child: TextFormField(
+        controller: controller,
         validator: validator,
         obscureText: isObscured,
         decoration: InputDecoration(
