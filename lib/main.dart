@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/auth/login_screen.dart';
 import 'package:flutter_application_1/features/auth/sign_up_scree.dart';
+import 'package:flutter_application_1/features/dasboard/dashboard_screen.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/utils/app_routes.dart';
 import 'package:flutter_application_1/utils/custom_color.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
               color: CustomColor.textGreyColor, fontWeight: FontWeight.w500),
         ),
       ),
-      home: const SignUpScreen(),
+      home: const DashboardScreen(),
       onGenerateRoute: (settings) => generateRoute(settings),
     );
   }
