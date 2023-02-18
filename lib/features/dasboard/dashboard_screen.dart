@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/dasboard/views/bag_screen.dart';
+import 'package:flutter_application_1/features/cart/bag_screen.dart';
 import 'package:flutter_application_1/features/dasboard/views/favorite_screen.dart';
 import 'package:flutter_application_1/features/dasboard/views/home_screen.dart';
 import 'package:flutter_application_1/features/shop/shop_screen.dart';
